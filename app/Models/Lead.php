@@ -19,6 +19,8 @@ class Lead extends Model
         'converted_to_client',
         'client_id',
         'status',
+        'created_at',
+        'updated_at',
     ];
 
     protected $casts = [

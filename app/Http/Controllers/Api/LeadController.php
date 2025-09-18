@@ -32,10 +32,18 @@ class LeadController extends Controller
 
             // Process created_at if provided
             $leadData = $validated;
-            if (isset($validated['created_at'])) {
-                $customDate = \Carbon\Carbon::parse($validated['created_at']);
-                $leadData['created_at'] = $customDate;
-                $leadData['updated_at'] = $customDate;
+            if (isset($validated['created_at']) && !empty($validated['created_at'])) {
+                try {
+                    $customDate = \Carbon\Carbon::parse($validated['created_at']);
+                    $leadData['created_at'] = $customDate;
+                    $leadData['updated_at'] = $customDate;
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Invalid created_at date format',
+                        'error' => 'The created_at field must be a valid date format'
+                    ], 422);
+                }
             }
 
             $lead = Lead::create($leadData);
