@@ -19,7 +19,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'profile_picture',
@@ -105,7 +106,7 @@ class User extends Authenticatable
 
     public function getDefaultProfilePicture()
     {
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF&size=128';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->getFullName()) . '&color=7F9CF5&background=EBF4FF&size=128';
     }
 
     public function getProfilePictureThumbnailAttribute()
@@ -114,19 +115,35 @@ class User extends Authenticatable
             return asset('storage/' . $this->profile_picture);
         }
         
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF&size=64';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->getFullName()) . '&color=7F9CF5&background=EBF4FF&size=64';
     }
 
     public function getInitialsAttribute()
     {
-        $words = explode(' ', $this->name);
         $initials = '';
-        foreach ($words as $word) {
-            if (!empty($word)) {
-                $initials .= strtoupper(substr($word, 0, 1));
-            }
+        if (!empty($this->first_name)) {
+            $initials .= strtoupper(substr($this->first_name, 0, 1));
+        }
+        if (!empty($this->last_name)) {
+            $initials .= strtoupper(substr($this->last_name, 0, 1));
         }
         return substr($initials, 0, 2);
+    }
+
+    /**
+     * Get the user's full name
+     */
+    public function getFullName()
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
+    /**
+     * Get the user's full name attribute (for backward compatibility)
+     */
+    public function getNameAttribute()
+    {
+        return $this->getFullName();
     }
 
     /**
