@@ -75,6 +75,67 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
             ], 500);
         }
     })->middleware('permission:manage settings')->name('storage-link');
+    
+    // Fix permissions route
+    Route::post('fix-permissions', function () {
+        try {
+            $output = [];
+            
+            // Set permissions for storage directory
+            $storagePath = storage_path('app/public');
+            $publicStoragePath = public_path('storage');
+            
+            // Create storage directory if it doesn't exist
+            if (!is_dir($storagePath)) {
+                mkdir($storagePath, 0755, true);
+                $output[] = "Created storage directory: {$storagePath}";
+            }
+            
+            // Set permissions for storage directory
+            if (is_dir($storagePath)) {
+                chmod($storagePath, 0755);
+                $output[] = "Set permissions for storage directory: 755";
+                
+                // Set permissions for all subdirectories and files
+                $iterator = new \RecursiveIteratorIterator(
+                    new \RecursiveDirectoryIterator($storagePath, \RecursiveDirectoryIterator::SKIP_DOTS),
+                    \RecursiveIteratorIterator::SELF_FIRST
+                );
+                
+                foreach ($iterator as $item) {
+                    if ($item->isDir()) {
+                        chmod($item->getPathname(), 0755);
+                        $output[] = "Set directory permissions: {$item->getPathname()} (755)";
+                    } else {
+                        chmod($item->getPathname(), 0644);
+                        $output[] = "Set file permissions: {$item->getPathname()} (644)";
+                    }
+                }
+            }
+            
+            // Ensure public/storage link exists and has correct permissions
+            if (is_link($publicStoragePath)) {
+                chmod($publicStoragePath, 0755);
+                $output[] = "Set link permissions: {$publicStoragePath} (755)";
+            }
+            
+            $outputText = implode("\n", $output);
+            if (empty($outputText)) {
+                $outputText = "Permissions check completed successfully!";
+            }
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Permissions fixed successfully',
+                'output' => $outputText
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Permissions fix failed: ' . $e->getMessage()
+            ], 500);
+        }
+    })->middleware('permission:manage settings')->name('fix-permissions');
 });
 
 // Leave management routes (accessible to users with leave permissions)

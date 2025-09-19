@@ -403,6 +403,43 @@
                                 <pre id="storage-result" class="text-xs font-mono whitespace-pre-wrap overflow-x-auto transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}"></pre>
                             </div>
                         </div>
+
+                        <!-- File Permissions Section -->
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-50 border-green-200', 'bg-green-900/20 border-green-700') }}">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-green-800', 'text-green-200') }}">
+                                        Fix File Permissions
+                                    </h3>
+                                    <div class="mt-2 text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-green-700', 'text-green-300') }}">
+                                        <p>Fix file permissions for storage directory. This resolves 403 Forbidden errors when accessing uploaded files like profile pictures.</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="button" onclick="fixPermissions()" 
+                                                id="permissions-btn"
+                                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-green-800 bg-green-100 hover:bg-green-200', 'text-green-200 bg-green-800 hover:bg-green-700') }}">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            Fix Permissions
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Permissions Output -->
+                        <div id="permissions-output" class="hidden">
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-50 border-gray-200', 'bg-slate-800 border-slate-600') }}">
+                                <h4 class="text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Permissions Fix Output:</h4>
+                                <pre id="permissions-result" class="text-xs font-mono whitespace-pre-wrap overflow-x-auto transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}"></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -573,6 +610,69 @@ function linkStorage() {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
             </svg>
             Link Storage
+        `;
+    });
+}
+
+function fixPermissions() {
+    const btn = document.getElementById('permissions-btn');
+    const output = document.getElementById('permissions-output');
+    const result = document.getElementById('permissions-result');
+    
+    // Disable button and show loading
+    btn.disabled = true;
+    btn.innerHTML = `
+        <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Fixing Permissions...
+    `;
+    
+    // Show output area
+    output.classList.remove('hidden');
+    result.textContent = 'Starting permissions fix...';
+    
+    // Make API call
+    fetch('{{ route("admin.fix-permissions") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            result.textContent = data.output || 'Permissions fixed successfully!';
+            result.className = result.className.replace('text-red-600', 'text-green-600');
+            if (!result.className.includes('text-green-600')) {
+                result.className += ' text-green-600';
+            }
+        } else {
+            result.textContent = 'Error: ' + data.message;
+            result.className = result.className.replace('text-green-600', 'text-red-600');
+            if (!result.className.includes('text-red-600')) {
+                result.className += ' text-red-600';
+            }
+        }
+    })
+    .catch(error => {
+        result.textContent = 'Error: ' + error.message;
+        result.className = result.className.replace('text-green-600', 'text-red-600');
+        if (!result.className.includes('text-red-600')) {
+            result.className += ' text-red-600';
+        }
+    })
+    .finally(() => {
+        // Re-enable button
+        btn.disabled = false;
+        btn.innerHTML = `
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Fix Permissions
         `;
     });
 }
