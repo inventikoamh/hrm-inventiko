@@ -22,7 +22,7 @@
         @endcan
         
         @can('view leaves')
-        <a href="{{ route('employee.leave-requests') }}" class="flex items-center p-2.5 rounded-lg transition-colors {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-50 hover:bg-green-100', 'bg-green-900/20 hover:bg-green-900/30') }}">
+        <a href="{{ route('employee.my-leave-requests') }}" class="flex items-center p-2.5 rounded-lg transition-colors {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-50 hover:bg-green-100', 'bg-green-900/20 hover:bg-green-900/30') }}">
             <svg class="w-4 h-4 mr-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-green-600', 'text-green-400') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
             </svg>
