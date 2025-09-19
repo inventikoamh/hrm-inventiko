@@ -61,12 +61,42 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Storage link route
     Route::post('storage-link', function () {
         try {
-            \Artisan::call('storage:link');
-            $output = \Artisan::output();
+            $output = [];
+            $publicStoragePath = public_path('storage');
+            $storagePath = storage_path('app/public');
+            
+            // Remove existing link if it exists
+            if (is_link($publicStoragePath)) {
+                unlink($publicStoragePath);
+                $output[] = "Removed existing storage link";
+            }
+            
+            // Remove directory if it exists (in case it's a directory instead of link)
+            if (is_dir($publicStoragePath)) {
+                rmdir($publicStoragePath);
+                $output[] = "Removed existing storage directory";
+            }
+            
+            // Create the symbolic link
+            if (symlink($storagePath, $publicStoragePath)) {
+                $output[] = "Created symbolic link: {$publicStoragePath} -> {$storagePath}";
+            } else {
+                throw new \Exception("Failed to create symbolic link");
+            }
+            
+            // Verify the link works
+            if (is_link($publicStoragePath) && is_dir($publicStoragePath)) {
+                $output[] = "Storage link verified successfully";
+            } else {
+                throw new \Exception("Storage link verification failed");
+            }
+            
+            $outputText = implode("\n", $output);
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Storage linked successfully',
-                'output' => $output
+                'output' => $outputText
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -136,6 +166,100 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
             ], 500);
         }
     })->middleware('permission:manage settings')->name('fix-permissions');
+    
+    // Check storage link status
+    Route::get('storage-status', function () {
+        try {
+            $output = [];
+            $publicStoragePath = public_path('storage');
+            $storagePath = storage_path('app/public');
+            
+            $output[] = "Checking storage link status...";
+            $output[] = "Public storage path: {$publicStoragePath}";
+            $output[] = "Storage path: {$storagePath}";
+            $output[] = "";
+            
+            // Check if public/storage exists
+            if (file_exists($publicStoragePath)) {
+                if (is_link($publicStoragePath)) {
+                    $linkTarget = readlink($publicStoragePath);
+                    $output[] = "✓ public/storage is a symbolic link";
+                    $output[] = "  Link target: {$linkTarget}";
+                    
+                    if ($linkTarget === $storagePath) {
+                        $output[] = "✓ Link target is correct";
+                    } else {
+                        $output[] = "✗ Link target is incorrect";
+                    }
+                } elseif (is_dir($publicStoragePath)) {
+                    $output[] = "✗ public/storage is a directory (should be a link)";
+                } else {
+                    $output[] = "✗ public/storage exists but is not a link or directory";
+                }
+            } else {
+                $output[] = "✗ public/storage does not exist";
+            }
+            
+            $output[] = "";
+            
+            // Check if storage/app/public exists
+            if (is_dir($storagePath)) {
+                $output[] = "✓ storage/app/public directory exists";
+                
+                // Check for profile-pictures directory
+                $profilePicsPath = $storagePath . '/profile-pictures';
+                if (is_dir($profilePicsPath)) {
+                    $output[] = "✓ profile-pictures directory exists";
+                    $files = scandir($profilePicsPath);
+                    $imageFiles = array_filter($files, function($file) {
+                        return in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif']);
+                    });
+                    $output[] = "  Found " . count($imageFiles) . " image files";
+                    foreach ($imageFiles as $file) {
+                        $output[] = "  - {$file}";
+                    }
+                } else {
+                    $output[] = "✗ profile-pictures directory does not exist";
+                }
+            } else {
+                $output[] = "✗ storage/app/public directory does not exist";
+            }
+            
+            $output[] = "";
+            
+            // Test if a file is accessible via web
+            $testFile = null;
+            if (is_dir($storagePath . '/profile-pictures')) {
+                $files = scandir($storagePath . '/profile-pictures');
+                foreach ($files as $file) {
+                    if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif'])) {
+                        $testFile = $file;
+                        break;
+                    }
+                }
+            }
+            
+            if ($testFile) {
+                $webUrl = url('storage/profile-pictures/' . $testFile);
+                $output[] = "Test file: {$testFile}";
+                $output[] = "Web URL: {$webUrl}";
+                $output[] = "Direct file path: {$storagePath}/profile-pictures/{$testFile}";
+            }
+            
+            $outputText = implode("\n", $output);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Storage status checked',
+                'output' => $outputText
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Storage status check failed: ' . $e->getMessage()
+            ], 500);
+        }
+    })->middleware('permission:manage settings')->name('storage-status');
 });
 
 // Leave management routes (accessible to users with leave permissions)

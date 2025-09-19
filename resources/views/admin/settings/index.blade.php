@@ -440,6 +440,43 @@
                                 <pre id="permissions-result" class="text-xs font-mono whitespace-pre-wrap overflow-x-auto transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}"></pre>
                             </div>
                         </div>
+
+                        <!-- Storage Status Section -->
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-purple-50 border-purple-200', 'bg-purple-900/20 border-purple-700') }}">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-purple-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-purple-800', 'text-purple-200') }}">
+                                        Check Storage Status
+                                    </h3>
+                                    <div class="mt-2 text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-purple-700', 'text-purple-300') }}">
+                                        <p>Check the current status of storage link and file accessibility. This helps diagnose why files might not be accessible via web.</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="button" onclick="checkStorageStatus()" 
+                                                id="status-btn"
+                                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-purple-800 bg-purple-100 hover:bg-purple-200', 'text-purple-200 bg-purple-800 hover:bg-purple-700') }}">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            Check Status
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Storage Status Output -->
+                        <div id="status-output" class="hidden">
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-50 border-gray-200', 'bg-slate-800 border-slate-600') }}">
+                                <h4 class="text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Storage Status Output:</h4>
+                                <pre id="status-result" class="text-xs font-mono whitespace-pre-wrap overflow-x-auto transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}"></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
