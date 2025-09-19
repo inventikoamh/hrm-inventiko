@@ -159,4 +159,9 @@ class ManageLeaves extends Component
             ]
         ]);
     }
+
+    protected function paginationTheme()
+    {
+        return 'tailwind';
+    }
 }

@@ -22,6 +22,7 @@ class SettingsSeeder extends Seeder
         
         // Theme Settings
         Setting::set('theme_color', '#3B82F6', 'string', 'theme', 'Theme Color', 'Primary color for the application theme');
+        Setting::set('theme_mode', 'light', 'string', 'theme', 'Theme Mode', 'Application theme mode (light or dark)');
         
         // Attendance Settings
         Setting::set('late_clock_in_time', '11:30', 'string', 'attendance', 'Late Clock In Time', 'Time after which clock in is considered late (24-hour format)');

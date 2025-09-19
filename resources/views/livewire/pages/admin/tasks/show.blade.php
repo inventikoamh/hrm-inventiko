@@ -1,11 +1,11 @@
 <div>
     <div class="max-w-4xl mx-auto space-y-6">
         <!-- Header -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">{{ $task->title }}</h1>
-                    <p class="text-gray-600 mt-1">Task Details</p>
+                    <h1 class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $task->title }}</h1>
+                    <p class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600', 'text-slate-400') }} mt-1">Task Details</p>
                 </div>
                 <div class="flex items-center space-x-3">
                     <a href="{{ route('admin.tasks.index') }}" 
@@ -33,13 +33,13 @@
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Description -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Description</h3>
-                    <div class="text-gray-700">
+                <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
+                    <h3 class="text-lg font-semibold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }} mb-4">Description</h3>
+                    <div class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">
                         @if($task->description)
                             {{ $task->description }}
                         @else
-                            <span class="text-gray-400 italic">No description provided</span>
+                            <span class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-400', 'text-slate-500') }} italic">No description provided</span>
                         @endif
                     </div>
                 </div>

@@ -19,6 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Theme Management API Routes
+Route::post('/theme/toggle', [App\Http\Controllers\Api\ThemeController::class, 'toggle']);
+Route::get('/theme/mode', [App\Http\Controllers\Api\ThemeController::class, 'getMode']);
+
 // Lead Management API Routes
 Route::prefix('leads')->group(function () {
     Route::get('/', [LeadController::class, 'index'])->name('api.leads.index');

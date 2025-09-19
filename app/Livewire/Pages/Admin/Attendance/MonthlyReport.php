@@ -225,4 +225,9 @@ class MonthlyReport extends Component
     {
         return view('livewire.pages.admin.attendance.monthly-report');
     }
+
+    protected function paginationTheme()
+    {
+        return 'tailwind';
+    }
 }

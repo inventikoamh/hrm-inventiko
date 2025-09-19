@@ -1,20 +1,20 @@
 <div class="p-6">
     <div class="max-w-4xl mx-auto">
-        <div class="bg-white shadow rounded-lg">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <h2 class="text-xl font-semibold text-gray-900">Request Leave</h2>
-                <p class="text-sm text-gray-600">Submit a leave request for approval</p>
+        <div class="shadow rounded-lg transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-800') }}">
+            <div class="px-6 py-4 border-b transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-200', 'border-slate-700') }}">
+                <h2 class="text-xl font-semibold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Request Leave</h2>
+                <p class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600', 'text-slate-400') }}">Submit a leave request for approval</p>
             </div>
 
             <form wire:submit="submit" class="p-6 space-y-6">
                 @if (session()->has('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                    <div class="px-4 py-3 rounded transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-100 border border-green-400 text-green-700', 'bg-green-900/20 border border-green-800 text-green-300') }}">
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session()->has('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    <div class="px-4 py-3 rounded transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-red-100 border border-red-400 text-red-700', 'bg-red-900/20 border border-red-800 text-red-300') }}">
                         {{ session('error') }}
                     </div>
                 @endif
@@ -22,10 +22,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Leave Type -->
                     <div>
-                        <label for="type" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="type" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">
                             Leave Type <span class="text-red-500">*</span>
                         </label>
-                        <select wire:model="type" id="type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <select wire:model="type" id="type" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900', 'bg-slate-700 border-slate-600 text-slate-100') }}">
                             <option value="">Select leave type...</option>
                             @foreach($leaveTypes as $key => $label)
                                 <option value="{{ $key }}">{{ $label }}</option>
@@ -37,12 +37,12 @@
                     <!-- Total Days Display -->
                     <div class="flex items-center">
                         @if($start_date && $end_date)
-                            <div class="bg-blue-50 border border-blue-200 rounded-md p-4 w-full">
+                            <div class="border rounded-md p-4 w-full transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-blue-50 border-blue-200', 'bg-blue-900/20 border-blue-800') }}">
                                 <div class="flex items-center">
                                     <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
-                                    <span class="text-blue-800 font-medium">
+                                    <span class="font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-800', 'text-blue-300') }}">
                                         Total Working Days (Mon-Sat): <span class="font-bold text-lg">{{ $total_days }}</span>
                                     </span>
                                 </div>
@@ -54,45 +54,45 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Start Date -->
                     <div>
-                        <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="start_date" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">
                             Start Date <span class="text-red-500">*</span>
                         </label>
                         <input type="date" wire:model.live="start_date" id="start_date" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900', 'bg-slate-700 border-slate-600 text-slate-100') }}">
                         @error('start_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <!-- End Date -->
                     <div>
-                        <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="end_date" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">
                             End Date <span class="text-red-500">*</span>
                         </label>
                         <input type="date" wire:model.live="end_date" id="end_date" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900', 'bg-slate-700 border-slate-600 text-slate-100') }}">
                         @error('end_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
                 <!-- Reason -->
                 <div>
-                    <label for="reason" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="reason" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">
                         Reason for Leave <span class="text-red-500">*</span>
                     </label>
                     <textarea wire:model="reason" id="reason" rows="4" 
-                              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                              class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900 placeholder-gray-500', 'bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400') }}"
                               placeholder="Please provide a detailed reason for your leave request..."></textarea>
                     @error('reason') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    <p class="text-sm text-gray-500 mt-1">Minimum 10 characters required</p>
+                    <p class="text-sm mt-1 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">Minimum 10 characters required</p>
                 </div>
 
                 <!-- Submit Button -->
                 <div class="flex justify-end space-x-3">
                     <a href="{{ route('employee.my-leave-requests') }}" 
-                       class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 inline-block">
+                       class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 inline-block transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 text-gray-700 hover:bg-gray-50', 'border-slate-600 text-slate-300 hover:bg-slate-700') }}">
                         Cancel
                     </a>
                     <button type="submit" 
-                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
                         Submit Request
                     </button>
                 </div>

@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Observers\UserObserver;
+use App\Livewire\Components\ThemeToggle;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,5 +37,8 @@ class AppServiceProvider extends ServiceProvider
         
         // Register model observers
         User::observe(UserObserver::class);
+        
+        // Register Livewire components
+        Livewire::component('theme-toggle', ThemeToggle::class);
     }
 }

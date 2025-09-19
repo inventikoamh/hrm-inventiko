@@ -136,24 +136,24 @@ new #[Layout('layouts.app')] class extends Component
 
 <div>
     <div class="flex items-center justify-between mb-6">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daily Attendance Report</h2>
+        <h2 class="font-semibold text-xl leading-tight transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-800', 'text-slate-100') }}">Daily Attendance Report</h2>
         
         <div class="flex items-center gap-4">
             <button 
                 wire:click="previousDay" 
-                class="px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                class="px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors duration-200"
             >
                 ← Previous
             </button>
             
-            <div class="text-lg font-medium">
+            <div class="text-lg font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">
                 {{ \Carbon\Carbon::parse($selectedDate)->format('M d, Y') }}
             </div>
             
             <button 
                 wire:click="nextDay" 
                 @if(!$canGoNext) disabled @endif
-                class="px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
                 Next →
             </button>
@@ -161,46 +161,46 @@ new #[Layout('layouts.app')] class extends Component
     </div>
 
     @if (session('error'))
-        <div class="mb-4 p-3 bg-red-100 text-red-700 rounded">{{ session('error') }}</div>
+        <div class="mb-4 p-3 rounded transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-red-100 text-red-700', 'bg-red-900/20 border border-red-800 text-red-300') }}">{{ session('error') }}</div>
     @endif
 
-    <div class="bg-white rounded shadow overflow-hidden">
+    <div class="rounded shadow overflow-hidden transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-800') }}">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="min-w-full divide-y transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('divide-gray-200', 'divide-slate-700') }}">
+                <thead class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-50', 'bg-slate-700') }}">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First Clock In</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Clock Out</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Latest Clock In</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Online</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">User</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">First Clock In</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Last Clock Out</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Latest Clock In</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Duration</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Online</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white divide-gray-200', 'bg-slate-800 divide-slate-700') }}">
                     @foreach($attendanceData as $row)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <tr class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('hover:bg-gray-50', 'hover:bg-slate-700') }}">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">
                                 {{ $row['user']->name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 @php
                                     $statusColors = [
-                                        'Present' => 'bg-green-100 text-green-800',
-                                        'Late' => 'bg-yellow-100 text-yellow-800',
-                                        'Absent' => 'bg-red-100 text-red-800',
-                                        'On Leave' => 'bg-blue-100 text-blue-800'
+                                        'Present' => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-100 text-green-800', 'bg-green-900/30 text-green-300'),
+                                        'Late' => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-yellow-100 text-yellow-800', 'bg-yellow-900/30 text-yellow-300'),
+                                        'Absent' => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-red-100 text-red-800', 'bg-red-900/30 text-red-300'),
+                                        'On Leave' => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-blue-100 text-blue-800', 'bg-blue-900/30 text-blue-300')
                                     ];
                                 @endphp
                                 <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $statusColors[$row['status']] }}">
                                     {{ $row['status'] }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">
                                 {{ $row['first_clock_in'] ? $row['first_clock_in']->format('H:i') : '—' }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">
                                 @if($row['last_clock_out'])
                                     {{ $row['last_clock_out']->format('H:i') }}
                                 @elseif($row['has_unclosed_session'])
@@ -209,17 +209,17 @@ new #[Layout('layouts.app')] class extends Component
                                     —
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">
                                 {{ $row['latest_clock_in'] ? $row['latest_clock_in']->format('H:i') : '—' }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">
                                 {{ $row['duration'] }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 @if($row['is_online'])
-                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Online</span>
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-100 text-green-800', 'bg-green-900/30 text-green-300') }}">Online</span>
                                 @else
-                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Offline</span>
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-100 text-gray-800', 'bg-slate-700 text-slate-300') }}">Offline</span>
                                 @endif
                             </td>
                         </tr>

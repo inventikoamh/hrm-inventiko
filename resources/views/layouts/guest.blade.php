@@ -18,7 +18,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
+    <body class="font-sans antialiased transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900 bg-white', 'text-slate-100 bg-slate-900') }}">
         <div class="min-h-screen flex">
             <!-- Left Column - Background Image -->
             <div class="hidden lg:flex lg:w-1/2 relative">
@@ -57,7 +57,7 @@
             </div>
 
             <!-- Right Column - Login Form -->
-            <div class="w-full lg:w-1/2 flex flex-col justify-center items-center px-6 py-12 bg-gray-50">
+            <div class="w-full lg:w-1/2 flex flex-col justify-center items-center px-6 py-12 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-50', 'bg-slate-800') }}">
                 <div class="w-full max-w-md">
                     <!-- Mobile Logo -->
                     <div class="lg:hidden text-center mb-8">
@@ -72,10 +72,10 @@
                                 </svg>
                             </div>
                         @endif
-                        <h1 class="text-2xl font-bold text-gray-900">{{ \App\Models\Setting::getAppName() }}</h1>
+                        <h1 class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ \App\Models\Setting::getAppName() }}</h1>
                     </div>
 
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="rounded-2xl shadow-xl p-8 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-700') }}">
                         {{ $slot }}
                     </div>
                 </div>

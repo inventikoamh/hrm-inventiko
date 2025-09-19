@@ -436,4 +436,9 @@ class Index extends Component
             'remarks' => $remarks,
         ]);
     }
+
+    protected function paginationTheme()
+    {
+        return 'tailwind';
+    }
 }

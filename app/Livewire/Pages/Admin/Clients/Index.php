@@ -55,4 +55,9 @@ class Index extends Component
             'clients' => $clients,
         ]);
     }
+
+    protected function paginationTheme()
+    {
+        return 'tailwind';
+    }
 }

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_picture',
+        'theme_preference',
     ];
 
     /**
@@ -126,5 +127,33 @@ class User extends Authenticatable
             }
         }
         return substr($initials, 0, 2);
+    }
+
+    /**
+     * Get the user's effective theme mode
+     * Returns 'light', 'dark', or 'system'
+     */
+    public function getThemePreference()
+    {
+        return $this->theme_preference ?? 'system';
+    }
+
+    /**
+     * Set the user's theme preference
+     */
+    public function setThemePreference($theme)
+    {
+        $this->update(['theme_preference' => $theme]);
+    }
+
+    /**
+     * Get available theme options
+     */
+    public static function getThemeOptions()
+    {
+        return [
+            'light' => 'Light',
+            'dark' => 'Dark',
+        ];
     }
 }

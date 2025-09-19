@@ -27,8 +27,8 @@ new #[Layout('layouts.guest')] class extends Component
 <div>
     <!-- Header -->
     <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-900">Welcome Back</h2>
-        <p class="mt-2 text-gray-600">Sign in to your account</p>
+        <h2 class="text-3xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Welcome Back</h2>
+        <p class="mt-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600', 'text-slate-400') }}">Sign in to your account</p>
     </div>
 
     <!-- Session Status -->
@@ -37,10 +37,10 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="login" class="space-y-6">
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email Address')" class="text-sm font-medium text-gray-700" />
+            <x-input-label for="email" :value="__('Email Address')" class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}" />
             <x-text-input wire:model="form.email" 
                          id="email" 
-                         class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" 
+                         class="mt-2 block w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900 placeholder-gray-500', 'bg-slate-600 border-slate-500 text-slate-100 placeholder-slate-400') }}" 
                          type="email" 
                          name="email" 
                          required 
@@ -52,10 +52,10 @@ new #[Layout('layouts.guest')] class extends Component
 
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" class="text-sm font-medium text-gray-700" />
+            <x-input-label for="password" :value="__('Password')" class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}" />
             <x-text-input wire:model="form.password" 
                          id="password" 
-                         class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                         class="mt-2 block w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900 placeholder-gray-500', 'bg-slate-600 border-slate-500 text-slate-100 placeholder-slate-400') }}"
                          type="password"
                          name="password"
                          required 
@@ -70,13 +70,13 @@ new #[Layout('layouts.guest')] class extends Component
                 <input wire:model="form.remember" 
                        id="remember" 
                        type="checkbox" 
-                       class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" 
+                       class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300', 'bg-slate-600 border-slate-500') }}" 
                        name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <span class="ml-2 text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600', 'text-slate-400') }}">{{ __('Remember me') }}</span>
             </label>
 
             @if (Route::has('password.request'))
-                <a class="text-sm text-indigo-600 hover:text-indigo-500 font-medium" 
+                <a class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-indigo-600 hover:text-indigo-500', 'text-indigo-400 hover:text-indigo-300') }}" 
                    href="{{ route('password.request') }}" 
                    wire:navigate>
                     {{ __('Forgot password?') }}

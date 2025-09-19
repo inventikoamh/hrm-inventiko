@@ -98,14 +98,14 @@ class Lead extends Model
     public function getStatusColor()
     {
         return match($this->status) {
-            self::STATUS_NEW_LEAD => 'bg-blue-100 text-blue-800',
-            self::STATUS_INITIAL_CONTACT => 'bg-yellow-100 text-yellow-800',
-            self::STATUS_QUALIFICATION_CALL => 'bg-orange-100 text-orange-800',
-            self::STATUS_PROPOSAL_SENT => 'bg-purple-100 text-purple-800',
-            self::STATUS_CONVERTED => 'bg-green-100 text-green-800',
-            self::STATUS_DEAD => 'bg-red-100 text-red-800',
-            self::STATUS_ON_HOLD => 'bg-gray-100 text-gray-800',
-            default => 'bg-gray-100 text-gray-800',
+            self::STATUS_NEW_LEAD => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-blue-100 text-blue-800', 'bg-blue-900/30 text-blue-300'),
+            self::STATUS_INITIAL_CONTACT => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-yellow-100 text-yellow-800', 'bg-yellow-900/30 text-yellow-300'),
+            self::STATUS_QUALIFICATION_CALL => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-orange-100 text-orange-800', 'bg-orange-900/30 text-orange-300'),
+            self::STATUS_PROPOSAL_SENT => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-purple-100 text-purple-800', 'bg-purple-900/30 text-purple-300'),
+            self::STATUS_CONVERTED => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-100 text-green-800', 'bg-green-900/30 text-green-300'),
+            self::STATUS_DEAD => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-red-100 text-red-800', 'bg-red-900/30 text-red-300'),
+            self::STATUS_ON_HOLD => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-100 text-gray-800', 'bg-slate-700 text-slate-300'),
+            default => \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-100 text-gray-800', 'bg-slate-700 text-slate-300'),
         };
     }
 

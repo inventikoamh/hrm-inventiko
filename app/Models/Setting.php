@@ -192,6 +192,22 @@ class Setting extends Model
     }
 
     /**
+     * Get theme mode
+     */
+    public static function getThemeMode()
+    {
+        return static::get('theme_mode', 'light');
+    }
+
+    /**
+     * Set theme mode
+     */
+    public static function setThemeMode($mode)
+    {
+        return static::set('theme_mode', $mode, 'string', 'theme', 'Theme Mode', 'Application theme mode (light or dark)');
+    }
+
+    /**
      * Get enum values for a specific enum type
      */
     public static function getEnumValues($enumType)

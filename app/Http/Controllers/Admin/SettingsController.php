@@ -67,6 +67,13 @@ class SettingsController extends Controller
             Setting::set('theme_color', $request->theme_color, 'string', 'theme', 'Theme Color', 'Primary color for the application theme');
         }
         
+        if ($request->has('theme_mode')) {
+            // Update user's theme preference instead of global setting
+            if (auth()->check()) {
+                auth()->user()->setThemePreference($request->theme_mode);
+            }
+        }
+        
         if ($request->has('late_clock_in_time')) {
             Setting::set('late_clock_in_time', $request->late_clock_in_time, 'string', 'attendance', 'Late Clock In Time', 'Time after which clock in is considered late (24-hour format)');
         }

@@ -7,7 +7,7 @@
                 <!-- Admin Dashboard -->
                 <div class="space-y-6">
                     <!-- Welcome Section -->
-                    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
+                    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
                         <div class="flex items-center justify-between">
                             <div>
                                 <h1 class="text-2xl font-bold">Welcome back, {{ auth()->user()->name }}!</h1>

@@ -2,29 +2,29 @@
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Leave Report</h1>
-            <p class="text-gray-600">Overview of all employees' leave balances and usage</p>
+            <h1 class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Leave Report</h1>
+            <p class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600', 'text-slate-400') }}">Overview of all employees' leave balances and usage</p>
         </div>
 
         <!-- Search and Filters -->
-        <div class="bg-white shadow rounded-lg p-6 mb-6">
+        <div class="shadow rounded-lg p-6 mb-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-800') }}">
             <div class="flex flex-col sm:flex-row gap-4">
                 <div class="flex-1">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Search Employees</label>
+                    <label class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Search Employees</label>
                     <input type="text" wire:model.live="search" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900 placeholder-gray-500', 'bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400') }}"
                            placeholder="Search by name or email...">
                 </div>
             </div>
         </div>
 
         <!-- Leave Report Table -->
-        <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="shadow rounded-lg overflow-hidden transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-800') }}">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                <table class="min-w-full divide-y transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('divide-gray-200', 'divide-slate-700') }}">
+                    <thead class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-50', 'bg-slate-700') }}">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" 
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider cursor-pointer transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500 hover:bg-gray-100', 'text-slate-300 hover:bg-slate-600') }}" 
                                 wire:click="sortBy('name')">
                                 Employee
                                 @if($sortBy === 'name')
@@ -39,17 +39,17 @@
                                     @endif
                                 @endif
                             </th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Sick Leave</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Casual Leave</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Festival Leave</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Privilege Leave</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Emergency Leave</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Total Used</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Sick Leave</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Casual Leave</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Festival Leave</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Privilege Leave</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Emergency Leave</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-300') }}">Total Used</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white divide-gray-200', 'bg-slate-800 divide-slate-700') }}">
                         @forelse($users as $user)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('hover:bg-gray-50', 'hover:bg-slate-700') }}">
                                 <!-- Employee Info -->
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
@@ -61,8 +61,8 @@
                                             </div>
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>
-                                            <div class="text-sm text-gray-500">{{ $user->email }}</div>
+                                            <div class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $user->name }}</div>
+                                            <div class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">{{ $user->email }}</div>
                                         </div>
                                     </div>
                                 </td>
@@ -80,13 +80,13 @@
                                         <div class="space-y-1">
                                             <!-- Used/Total -->
                                             <div class="text-sm">
-                                                <span class="font-medium text-gray-900">{{ $used }}</span>
-                                                <span class="text-gray-500">/ {{ $total }}</span>
+                                                <span class="font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $used }}</span>
+                                                <span class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">/ {{ $total }}</span>
                                             </div>
                                             
                                             <!-- Remaining -->
                                             <div class="text-xs">
-                                                <span class="text-gray-600">Remaining: </span>
+                                                <span class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600', 'text-slate-400') }}">Remaining: </span>
                                                 <span class="font-medium {{ $remaining < 5 ? 'text-red-600' : ($remaining < 10 ? 'text-yellow-600' : 'text-green-600') }}">
                                                     {{ $remaining }}
                                                 </span>
@@ -94,7 +94,7 @@
                                             
                                             <!-- Progress Bar -->
                                             @if($total > 0)
-                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="w-full rounded-full h-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-200', 'bg-slate-600') }}">
                                                     <div class="bg-blue-600 h-2 rounded-full" 
                                                          style="width: {{ min(100, ($used / $total) * 100) }}%"></div>
                                                 </div>
@@ -109,13 +109,13 @@
                                         $totalUsed = array_sum($leaveCounts[$user->id]);
                                         $totalAllowed = $user->leaveBalances->sum('total_allowed');
                                     @endphp
-                                    <div class="text-sm font-medium text-gray-900">{{ $totalUsed }}</div>
-                                    <div class="text-xs text-gray-500">of {{ $totalAllowed }}</div>
+                                    <div class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $totalUsed }}</div>
+                                    <div class="text-xs transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">of {{ $totalAllowed }}</div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                                <td colspan="7" class="px-6 py-4 text-center transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">
                                     No employees found.
                                 </td>
                             </tr>
@@ -125,7 +125,7 @@
             </div>
 
             <!-- Pagination -->
-            <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+            <div class="px-4 py-3 border-t sm:px-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
                 {{ $users->links() }}
             </div>
         </div>
@@ -143,15 +143,15 @@
                     }
                     $percentage = $totalAllowed > 0 ? round(($totalUsed / $totalAllowed) * 100, 1) : 0;
                 @endphp
-                <div class="bg-white shadow rounded-lg p-4">
-                    <div class="text-sm font-medium text-gray-500">{{ $label }}</div>
+                <div class="shadow rounded-lg p-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-800') }}">
+                    <div class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">{{ $label }}</div>
                     <div class="mt-2">
-                        <div class="text-2xl font-bold text-gray-900">{{ $totalUsed }}</div>
-                        <div class="text-sm text-gray-500">of {{ $totalAllowed }}</div>
-                        <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
+                        <div class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $totalUsed }}</div>
+                        <div class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">of {{ $totalAllowed }}</div>
+                        <div class="mt-2 w-full rounded-full h-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-200', 'bg-slate-600') }}">
                             <div class="bg-blue-600 h-2 rounded-full" style="width: {{ $percentage }}%"></div>
                         </div>
-                        <div class="text-xs text-gray-500 mt-1">{{ $percentage }}% used</div>
+                        <div class="text-xs mt-1 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">{{ $percentage }}% used</div>
                     </div>
                 </div>
             @endforeach

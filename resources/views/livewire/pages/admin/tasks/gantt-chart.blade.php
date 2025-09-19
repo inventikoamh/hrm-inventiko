@@ -1,15 +1,15 @@
 <div>
     <div class="space-y-6">
         <!-- Header -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Task Gantt Chart</h1>
-                    <p class="text-gray-600 mt-1">Visualize task assignments across users and time periods</p>
+                    <h1 class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Task Gantt Chart</h1>
+                    <p class="mt-1 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600', 'text-slate-400') }}">Visualize task assignments across users and time periods</p>
                 </div>
                 <div class="flex items-center space-x-3">
                     <a href="{{ route('admin.tasks.index') }}" 
-                       class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                       class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-100 text-gray-700 hover:bg-gray-200', 'bg-slate-700 text-slate-300 hover:bg-slate-600') }}">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                         </svg>
@@ -30,85 +30,85 @@
 
         <!-- Summary Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-purple-100', 'bg-purple-900/30') }}">
+                            <svg class="w-5 h-5 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-purple-600', 'text-purple-400') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                             </svg>
                         </div>
                     </div>
                     <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">Total Tasks</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $this->tasks->count() }}</p>
+                        <p class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">Total Tasks</p>
+                        <p class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $this->tasks->count() }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-blue-100', 'bg-blue-900/30') }}">
+                            <svg class="w-5 h-5 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-600', 'text-blue-400') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                             </svg>
                         </div>
                     </div>
                     <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">Active Users</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ count($this->ganttData) }}</p>
+                        <p class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">Active Users</p>
+                        <p class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ count($this->ganttData) }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-green-100', 'bg-green-900/30') }}">
+                            <svg class="w-5 h-5 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-green-600', 'text-green-400') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
                     </div>
                     <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">Completed</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $this->tasks->where('status', 'completed')->count() }}</p>
+                        <p class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">Completed</p>
+                        <p class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $this->tasks->where('status', 'completed')->count() }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-orange-100', 'bg-orange-900/30') }}">
+                            <svg class="w-5 h-5 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-orange-600', 'text-orange-400') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
                     </div>
                     <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">In Progress</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $this->tasks->where('status', 'in_progress')->count() }}</p>
+                        <p class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">In Progress</p>
+                        <p class="text-2xl font-bold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $this->tasks->where('status', 'in_progress')->count() }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Filters -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-900">Filters</h3>
+                <h3 class="text-lg font-semibold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Filters</h3>
                 <div class="flex items-center space-x-3">
                     <!-- Quick View Buttons -->
                     <div class="flex items-center space-x-2">
                         <button wire:click="setWeekView" 
-                                class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">
+                                class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-md transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-600 bg-gray-100 hover:bg-gray-200', 'text-slate-300 bg-slate-700 hover:bg-slate-600') }}">
                             This Week
                         </button>
                     </div>
                     <button wire:click="$set('selectedWeek', '{{ now()->startOfWeek()->format('Y-m-d') }}'); $set('selectedUsers', []); $set('selectedProjects', [])" 
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700 bg-gray-100 hover:bg-gray-200', 'text-slate-300 bg-slate-700 hover:bg-slate-600') }}">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                         </svg>
@@ -120,9 +120,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <!-- Week Selection -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Week</label>
+                    <label class="block text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }} mb-2">Select Week</label>
                     <select wire:model.live="selectedWeek" 
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            class="w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
                         @foreach($this->weekOptions as $week)
                             <option value="{{ $week['value'] }}" 
                                     @if($week['is_current']) selected @endif>
@@ -135,46 +135,46 @@
 
                 <!-- Users Filter -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Filter by Users</label>
+                    <label class="block text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }} mb-2">Filter by Users</label>
                     <select wire:model.live="selectedUsers" multiple
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            class="w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
                         @foreach($this->users as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                         @endforeach
                     </select>
-                    <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple</p>
+                    <p class="text-xs transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }} mt-1">Hold Ctrl/Cmd to select multiple</p>
                 </div>
 
                 <!-- Projects Filter -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Filter by Projects</label>
+                    <label class="block text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }} mb-2">Filter by Projects</label>
                     <select wire:model.live="selectedProjects" multiple
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            class="w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
                         @foreach($this->projects as $project)
                             <option value="{{ $project->id }}">{{ $project->title }}</option>
                         @endforeach
                     </select>
-                    <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple</p>
+                    <p class="text-xs transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }} mt-1">Hold Ctrl/Cmd to select multiple</p>
                 </div>
             </div>
         </div>
 
         <!-- Gantt Chart -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="rounded-xl shadow-sm border overflow-hidden transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
             @if(count($this->ganttData) > 0)
                 <div class="overflow-x-auto">
                     <div class="min-w-full">
                         <!-- Header -->
-                        <div class="flex border-b border-gray-200 bg-gray-50">
-                            <div class="w-64 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky left-0 bg-gray-50 z-10 border-r border-gray-200">
+                        <div class="flex border-b transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-200 bg-gray-50', 'border-slate-600 bg-slate-700') }}">
+                            <div class="w-64 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider sticky left-0 z-10 border-r transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500 bg-gray-50 border-gray-200', 'text-slate-300 bg-slate-700 border-slate-600') }}">
                                 Employee
                             </div>
                             <div class="flex-1 flex">
                                 @foreach($this->dateRange as $date)
-                                    <div class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider min-w-20 border-r border-gray-100 {{ $date->isToday() ? 'bg-blue-50' : '' }}">
+                                    <div class="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider min-w-20 border-r transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500 border-gray-100', 'text-slate-300 border-slate-600') }} {{ $date->isToday() ? \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-blue-50', 'bg-blue-900/20') : '' }}">
                                         <div class="flex flex-col">
-                                            <span class="text-gray-400 text-xs">{{ $date->format('D') }}</span>
-                                            <span class="text-sm font-semibold text-gray-900">{{ $date->format('d') }}</span>
+                                            <span class="text-xs transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-400', 'text-slate-400') }}">{{ $date->format('D') }}</span>
+                                            <span class="text-sm font-semibold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $date->format('d') }}</span>
                                         </div>
                                     </div>
                                 @endforeach
@@ -182,11 +182,11 @@
                         </div>
 
                         <!-- Body -->
-                        <div class="divide-y divide-gray-200">
+                        <div class="divide-y transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('divide-gray-200', 'divide-slate-700') }}">
                             @foreach($this->ganttData as $userData)
-                                <div class="flex hover:bg-gray-50 transition-colors" style="min-height: {{ max(80, count($userData['tasks']) * 24 + 32) }}px;">
+                                <div class="flex transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('hover:bg-gray-50', 'hover:bg-slate-700') }}" style="min-height: {{ max(80, count($userData['tasks']) * 24 + 32) }}px;">
                                     <!-- User Column -->
-                                    <div class="w-64 px-4 py-4 sticky left-0 bg-white z-10 border-r border-gray-200">
+                                    <div class="w-64 px-4 py-4 sticky left-0 z-10 border-r transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-600') }}">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-8 w-8">
                                                 @if($userData['user']->profile_picture)
@@ -200,8 +200,8 @@
                                                 @endif
                                             </div>
                                             <div class="ml-3">
-                                                <div class="text-sm font-medium text-gray-900">{{ $userData['user']->name }}</div>
-                                                <div class="text-xs text-gray-500">{{ $userData['user']->roles->first()->name ?? 'Employee' }}</div>
+                                                <div class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $userData['user']->name }}</div>
+                                                <div class="text-xs transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">{{ $userData['user']->roles->first()->name ?? 'Employee' }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -209,7 +209,7 @@
                                     <!-- Timeline Column -->
                                     <div class="flex-1 flex relative">
                                         @foreach($this->dateRange as $date)
-                                            <div class="px-3 py-4 min-w-20 border-r border-gray-100 relative" style="min-height: {{ max(80, count($userData['tasks']) * 24 + 32) }}px;">
+                                            <div class="px-3 py-4 min-w-20 border-r relative transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-100', 'border-slate-600') }}" style="min-height: {{ max(80, count($userData['tasks']) * 24 + 32) }}px;">
                                                 <!-- Empty cell for spacing -->
                                             </div>
                                         @endforeach
@@ -279,13 +279,13 @@
                 </div>
             @else
                 <div class="text-center py-16">
-                    <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-100', 'bg-slate-700') }}">
+                        <svg class="w-12 h-12 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-400', 'text-slate-400') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">No tasks found</h3>
-                    <p class="text-gray-500 mb-4">Try adjusting your filters or date range to see task assignments.</p>
+                    <h3 class="text-lg font-semibold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }} mb-2">No tasks found</h3>
+                    <p class="transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }} mb-4">Try adjusting your filters or date range to see task assignments.</p>
                     <div class="flex justify-center space-x-3">
                         <a href="{{ route('admin.tasks.create') }}" 
                            class="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors">
@@ -295,7 +295,7 @@
                             Create Task
                         </a>
                         <button wire:click="$set('selectedWeek', '{{ now()->startOfWeek()->format('Y-m-d') }}')" 
-                                class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-100 text-gray-700 hover:bg-gray-200', 'bg-slate-700 text-slate-300 hover:bg-slate-600') }}">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                             </svg>
@@ -307,42 +307,42 @@
         </div>
 
         <!-- Legend -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Legend</h3>
+        <div class="rounded-xl shadow-sm border p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-200', 'bg-slate-800 border-slate-700') }}">
+            <h3 class="text-lg font-semibold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }} mb-4">Legend</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <h4 class="text-sm font-medium text-gray-900 mb-3">Task Status</h4>
+                    <h4 class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }} mb-3">Task Status</h4>
                     <div class="space-y-2">
                         <div class="flex items-center">
                             <div class="w-8 h-3 bg-orange-500 rounded mr-3"></div>
-                            <span class="text-sm text-gray-700">Pending</span>
+                            <span class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Pending</span>
                         </div>
                         <div class="flex items-center">
                             <div class="w-8 h-3 bg-blue-500 rounded mr-3"></div>
-                            <span class="text-sm text-gray-700">In Progress</span>
+                            <span class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">In Progress</span>
                         </div>
                         <div class="flex items-center">
                             <div class="w-8 h-3 bg-green-500 rounded mr-3"></div>
-                            <span class="text-sm text-gray-700">Completed</span>
+                            <span class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Completed</span>
                         </div>
                         <div class="flex items-center">
                             <div class="w-8 h-3 bg-red-500 rounded mr-3"></div>
-                            <span class="text-sm text-gray-700">Cancelled</span>
+                            <span class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Cancelled</span>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-sm font-medium text-gray-900 mb-3">How to Use</h4>
+                    <h4 class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }} mb-3">How to Use</h4>
                     <div class="space-y-2">
                         <div class="flex items-center">
                             <div class="w-2 h-2 bg-white rounded-full mr-3"></div>
-                            <span class="text-sm text-gray-700">Urgent tasks (white dot)</span>
+                            <span class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Urgent tasks (white dot)</span>
                         </div>
                         <div class="flex items-center">
-                            <span class="text-sm text-gray-700">Hover over bars to see task details</span>
+                            <span class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Hover over bars to see task details</span>
                         </div>
                         <div class="flex items-center">
-                            <span class="text-sm text-gray-700">Click bars to view task details</span>
+                            <span class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Click bars to view task details</span>
                         </div>
                     </div>
                 </div>

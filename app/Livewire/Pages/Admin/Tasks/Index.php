@@ -209,4 +209,9 @@ class Index extends Component
             'priorityOptions' => $this->getPriorityOptions(),
         ]);
     }
+
+    protected function paginationTheme()
+    {
+        return 'tailwind';
+    }
 }

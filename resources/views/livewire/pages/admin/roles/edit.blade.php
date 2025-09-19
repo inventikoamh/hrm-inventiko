@@ -74,23 +74,23 @@ new #[Layout('layouts.app')] class extends Component
 }; ?>
 
 <div>
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">Edit Role</h2>
+    <h2 class="font-semibold text-xl leading-tight mb-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-800', 'text-slate-100') }}">Edit Role</h2>
 
-    <div class="bg-white p-6 rounded shadow max-w-2xl">
+    <div class="p-6 rounded shadow max-w-2xl transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-800') }}">
         <form wire:submit="save" class="space-y-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" wire:model.live="name" class="mt-1 block w-full border rounded px-3 py-2" />
-                @error('name') <div class="text-sm text-red-600">{{ $message }}</div> @enderror
+                <label class="block text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Name</label>
+                <input type="text" wire:model.live="name" class="mt-1 block w-full border rounded px-3 py-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300 text-gray-900 placeholder-gray-500', 'bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400') }}" />
+                @error('name') <div class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-red-600', 'text-red-400') }}">{{ $message }}</div> @enderror
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-4">Permissions</label>
+                <label class="block text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }} mb-4">Permissions</label>
                 <div class="space-y-6">
                     @foreach($this->getPermissionGroups() as $groupName => $permissions)
                         @if(count($permissions) > 0)
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <div class="border rounded-lg p-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-200', 'border-slate-600') }}">
+                                <h3 class="text-lg font-semibold mb-3 flex items-center transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-800', 'text-slate-100') }}">
                                     <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
@@ -98,12 +98,12 @@ new #[Layout('layouts.app')] class extends Component
                                 </h3>
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                     @foreach($permissions as $permission)
-                                        <label class="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50 transition-colors">
+                                        <label class="flex items-center gap-3 p-2 rounded-md transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('hover:bg-gray-50', 'hover:bg-slate-700') }}">
                                             <input type="checkbox" 
                                                    value="{{ $permission->name }}" 
                                                    wire:model.live="selectedPermissions"
-                                                   class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
-                                            <span class="text-sm text-gray-700 font-medium">{{ ucwords(str_replace('_', ' ', $permission->name)) }}</span>
+                                                   class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white border-gray-300', 'bg-slate-700 border-slate-600') }}" />
+                                            <span class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">{{ ucwords(str_replace('_', ' ', $permission->name)) }}</span>
                                         </label>
                                     @endforeach
                                 </div>
@@ -114,8 +114,8 @@ new #[Layout('layouts.app')] class extends Component
             </div>
 
             <div class="flex justify-end gap-2">
-                <a href="{{ route('admin.roles.index') }}" wire:navigate class="px-4 py-2">Cancel</a>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">Save</button>
+                <a href="{{ route('admin.roles.index') }}" wire:navigate class="px-4 py-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700 hover:text-gray-900', 'text-slate-300 hover:text-slate-100') }}">Cancel</a>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded transition-colors duration-200 hover:bg-indigo-700">Save</button>
             </div>
         </form>
     </div>

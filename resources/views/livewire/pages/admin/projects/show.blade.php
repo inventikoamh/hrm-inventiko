@@ -1,8 +1,8 @@
 <div>
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-2xl font-semibold text-gray-900">{{ $project->title }}</h1>
-            <p class="mt-2 text-sm text-gray-700">Project details and information.</p>
+            <h1 class="text-2xl font-semibold transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">{{ $project->title }}</h1>
+            <p class="mt-2 text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-400') }}">Project details and information.</p>
         </div>
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none space-x-3">
             @can('edit projects')
@@ -21,12 +21,12 @@
     <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <!-- Project Information -->
         <div class="lg:col-span-2">
-            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="shadow overflow-hidden sm:rounded-lg transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-800') }}">
                 <div class="px-4 py-5 sm:px-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Project Information</h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Basic project details and description.</p>
+                    <h3 class="text-lg leading-6 font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Project Information</h3>
+                    <p class="mt-1 max-w-2xl text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">Basic project details and description.</p>
                 </div>
-                <div class="border-t border-gray-200">
+                <div class="border-t transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-200', 'border-slate-700') }}">
                     <dl>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium text-gray-500">Description</dt>

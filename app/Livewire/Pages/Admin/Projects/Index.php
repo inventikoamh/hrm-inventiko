@@ -96,4 +96,9 @@ class Index extends Component
             'priorities' => $priorities,
         ]);
     }
+
+    protected function paginationTheme()
+    {
+        return 'tailwind';
+    }
 }
