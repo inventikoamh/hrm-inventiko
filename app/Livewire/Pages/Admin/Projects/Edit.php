@@ -123,7 +123,7 @@ class Edit extends Component
 
     public function render()
     {
-        $users = User::orderBy('name')->get();
+        $users = User::orderBy('first_name')->get();
         $clients = Client::orderBy('client_name')->get();
         
         $currencies = [

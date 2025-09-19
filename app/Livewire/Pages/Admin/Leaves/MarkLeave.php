@@ -140,7 +140,7 @@ class MarkLeave extends Component
     public function render()
     {
         return view('livewire.pages.admin.leaves.mark-leave', [
-            'users' => User::orderBy('name')->get(),
+            'users' => User::orderBy('first_name')->get(),
             'leaveTypes' => [
                 'sick' => 'Sick Leave',
                 'casual' => 'Casual Leave',

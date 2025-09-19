@@ -141,7 +141,7 @@ class ManageLeaves extends Component
 
         return view('livewire.pages.admin.leaves.manage-leaves', [
             'leaves' => $leaves,
-            'users' => User::orderBy('name')->get(),
+            'users' => User::orderBy('first_name')->get(),
             'leaveTypes' => [
                 'sick' => 'Sick Leave',
                 'casual' => 'Casual Leave',

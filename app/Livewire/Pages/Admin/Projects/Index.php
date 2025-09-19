@@ -73,7 +73,7 @@ class Index extends Component
 
         $projects = $query->paginate(10);
 
-        $projectLeads = User::orderBy('name')->get();
+        $projectLeads = User::orderBy('first_name')->get();
         
         $statuses = [
             'planned' => 'Planned',
