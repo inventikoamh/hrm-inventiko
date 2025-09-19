@@ -366,6 +366,43 @@
                                 <pre id="migration-result" class="text-xs font-mono whitespace-pre-wrap overflow-x-auto transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}"></pre>
                             </div>
                         </div>
+
+                        <!-- Storage Link Section -->
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-blue-50 border-blue-200', 'bg-blue-900/20 border-blue-700') }}">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 4a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm8 0a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V8zm0 4a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1v-2z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-800', 'text-blue-200') }}">
+                                        Storage Link
+                                    </h3>
+                                    <div class="mt-2 text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-700', 'text-blue-300') }}">
+                                        <p>Create a symbolic link from public/storage to storage/app/public. This is required for file uploads and image display to work properly.</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="button" onclick="linkStorage()" 
+                                                id="storage-btn"
+                                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-800 bg-blue-100 hover:bg-blue-200', 'text-blue-200 bg-blue-800 hover:bg-blue-700') }}">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                            </svg>
+                                            Link Storage
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Storage Link Output -->
+                        <div id="storage-output" class="hidden">
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-50 border-gray-200', 'bg-slate-800 border-slate-600') }}">
+                                <h4 class="text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Storage Link Output:</h4>
+                                <pre id="storage-result" class="text-xs font-mono whitespace-pre-wrap overflow-x-auto transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}"></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -473,6 +510,69 @@ function runMigration() {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>
             Run Migrations
+        `;
+    });
+}
+
+function linkStorage() {
+    const btn = document.getElementById('storage-btn');
+    const output = document.getElementById('storage-output');
+    const result = document.getElementById('storage-result');
+    
+    // Disable button and show loading
+    btn.disabled = true;
+    btn.innerHTML = `
+        <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Linking Storage...
+    `;
+    
+    // Show output area
+    output.classList.remove('hidden');
+    result.textContent = 'Starting storage link...';
+    
+    // Make API call
+    fetch('{{ route("admin.storage-link") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            result.textContent = data.output || 'Storage linked successfully!';
+            result.className = result.className.replace('text-red-600', 'text-green-600');
+            if (!result.className.includes('text-green-600')) {
+                result.className += ' text-green-600';
+            }
+        } else {
+            result.textContent = 'Error: ' + data.message;
+            result.className = result.className.replace('text-green-600', 'text-red-600');
+            if (!result.className.includes('text-red-600')) {
+                result.className += ' text-red-600';
+            }
+        }
+    })
+    .catch(error => {
+        result.textContent = 'Error: ' + error.message;
+        result.className = result.className.replace('text-green-600', 'text-red-600');
+        if (!result.className.includes('text-red-600')) {
+            result.className += ' text-red-600';
+        }
+    })
+    .finally(() => {
+        // Re-enable button
+        btn.disabled = false;
+        btn.innerHTML = `
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+            </svg>
+            Link Storage
         `;
     });
 }

@@ -57,6 +57,24 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
             ], 500);
         }
     })->middleware('permission:manage settings')->name('migrate');
+    
+    // Storage link route
+    Route::post('storage-link', function () {
+        try {
+            \Artisan::call('storage:link');
+            $output = \Artisan::output();
+            return response()->json([
+                'success' => true,
+                'message' => 'Storage linked successfully',
+                'output' => $output
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Storage link failed: ' . $e->getMessage()
+            ], 500);
+        }
+    })->middleware('permission:manage settings')->name('storage-link');
 });
 
 // Leave management routes (accessible to users with leave permissions)
