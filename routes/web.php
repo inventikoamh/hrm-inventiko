@@ -39,6 +39,24 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('settings/enums', [App\Http\Controllers\Admin\SettingsController::class, 'updateEnums'])->middleware('permission:manage settings')->name('settings.update-enums');
     Route::post('settings/colors', [App\Http\Controllers\Admin\SettingsController::class, 'updateColors'])->middleware('permission:manage settings')->name('settings.update-colors');
     Route::delete('settings/remove-file/{type}', [App\Http\Controllers\Admin\SettingsController::class, 'removeFile'])->middleware('permission:manage settings')->name('settings.remove-file');
+    
+    // Migration route (for server deployment)
+    Route::post('migrate', function () {
+        try {
+            \Artisan::call('migrate', ['--force' => true]);
+            $output = \Artisan::output();
+            return response()->json([
+                'success' => true,
+                'message' => 'Migrations completed successfully',
+                'output' => $output
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Migration failed: ' . $e->getMessage()
+            ], 500);
+        }
+    })->middleware('permission:manage settings')->name('migrate');
 });
 
 // Leave management routes (accessible to users with leave permissions)
