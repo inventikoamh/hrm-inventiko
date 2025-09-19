@@ -76,7 +76,11 @@
                     </div>
 
                     <div class="rounded-2xl shadow-xl p-8 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-white', 'bg-slate-700') }}">
-                        {{ $slot }}
+                        @if(isset($slot))
+                            {{ $slot }}
+                        @else
+                            @yield('content')
+                        @endif
                     </div>
                 </div>
             </div>

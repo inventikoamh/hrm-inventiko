@@ -10,11 +10,15 @@ Route::middleware('guest')->group(function () {
     Volt::route('login', 'pages.auth.login')
         ->name('login');
 
-    Volt::route('forgot-password', 'pages.auth.forgot-password')
+    // Password Reset Routes
+    Route::get('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showForgotPasswordForm'])
         ->name('password.request');
-
-    Volt::route('reset-password/{token}', 'pages.auth.reset-password')
+    Route::post('forgot-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])
+        ->name('password.email');
+    Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showResetForm'])
         ->name('password.reset');
+    Route::post('reset-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset'])
+        ->name('password.update');
 });
 
 Route::middleware('auth')->group(function () {
