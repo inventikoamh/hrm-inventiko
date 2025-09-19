@@ -39,6 +39,25 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('settings/enums', [App\Http\Controllers\Admin\SettingsController::class, 'updateEnums'])->middleware('permission:manage settings')->name('settings.update-enums');
     Route::post('settings/colors', [App\Http\Controllers\Admin\SettingsController::class, 'updateColors'])->middleware('permission:manage settings')->name('settings.update-colors');
     Route::delete('settings/remove-file/{type}', [App\Http\Controllers\Admin\SettingsController::class, 'removeFile'])->middleware('permission:manage settings')->name('settings.remove-file');
+    Route::post('settings/test-mail', [App\Http\Controllers\Admin\SettingsController::class, 'testMail'])->middleware('permission:manage settings')->name('settings.test-mail');
+    Route::get('settings/check-mail-config', [App\Http\Controllers\Admin\SettingsController::class, 'checkMailConfig'])->middleware('permission:manage settings')->name('settings.check-mail-config');
+    
+    // Test route for mail configuration (remove in production)
+    Route::get('test-mail-config', function() {
+        try {
+            $settings = \App\Models\Setting::configureMailSettings();
+            return response()->json([
+                'success' => true,
+                'message' => 'Mail configuration loaded successfully',
+                'settings' => $settings
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ]);
+        }
+    });
     
     // Migration route (for server deployment)
     Route::post('migrate', function () {

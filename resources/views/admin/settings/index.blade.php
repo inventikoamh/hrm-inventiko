@@ -33,6 +33,9 @@
                     <button onclick="showTab('colors')" id="colors-tab" class="tab-button py-4 px-1 border-b-2 border-transparent font-medium text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500 hover:text-gray-700 hover:border-gray-300', 'text-slate-400 hover:text-slate-300 hover:border-slate-500') }}">
                         Colors
                     </button>
+                    <button onclick="showTab('mail')" id="mail-tab" class="tab-button py-4 px-1 border-b-2 border-transparent font-medium text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500 hover:text-gray-700 hover:border-gray-300', 'text-slate-400 hover:text-slate-300 hover:border-slate-500') }}">
+                        Mail
+                    </button>
                     <button onclick="showTab('system')" id="system-tab" class="tab-button py-4 px-1 border-b-2 border-transparent font-medium text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500 hover:text-gray-700 hover:border-gray-300', 'text-slate-400 hover:text-slate-300 hover:border-slate-500') }}">
                         System
                     </button>
@@ -322,6 +325,180 @@
                         <div class="mt-6 flex justify-end">
                             <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200">
                                 Save Colors
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Mail Settings Tab -->
+                <div id="mail-content" class="tab-content hidden">
+                    <form method="POST" action="{{ route('admin.settings.update') }}">
+                        @csrf
+                        <div class="space-y-6">
+                            <!-- Mail Driver -->
+                            <div>
+                                <label for="mail_mailer" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">Mail Driver</label>
+                                <select id="mail_mailer" name="mail_mailer" 
+                                        class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                    <option value="smtp" {{ old('mail_mailer', \App\Models\Setting::get('mail_mailer', 'smtp')) == 'smtp' ? 'selected' : '' }}>SMTP</option>
+                                    <option value="sendmail" {{ old('mail_mailer', \App\Models\Setting::get('mail_mailer', 'smtp')) == 'sendmail' ? 'selected' : '' }}>Sendmail</option>
+                                    <option value="mailgun" {{ old('mail_mailer', \App\Models\Setting::get('mail_mailer', 'smtp')) == 'mailgun' ? 'selected' : '' }}>Mailgun</option>
+                                    <option value="ses" {{ old('mail_mailer', \App\Models\Setting::get('mail_mailer', 'smtp')) == 'ses' ? 'selected' : '' }}>Amazon SES</option>
+                                    <option value="postmark" {{ old('mail_mailer', \App\Models\Setting::get('mail_mailer', 'smtp')) == 'postmark' ? 'selected' : '' }}>Postmark</option>
+                                    <option value="resend" {{ old('mail_mailer', \App\Models\Setting::get('mail_mailer', 'smtp')) == 'resend' ? 'selected' : '' }}>Resend</option>
+                                    <option value="log" {{ old('mail_mailer', \App\Models\Setting::get('mail_mailer', 'smtp')) == 'log' ? 'selected' : '' }}>Log (Testing)</option>
+                                </select>
+                                <p class="mt-1 text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-500', 'text-slate-400') }}">Choose the mail driver for sending emails</p>
+                                @error('mail_mailer')
+                                    <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- SMTP Configuration -->
+                            <div id="smtp-config" class="space-y-4">
+                                <h3 class="text-lg font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">SMTP Configuration</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="mail_host" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">SMTP Host</label>
+                                        <input type="text" id="mail_host" name="mail_host" 
+                                               value="{{ old('mail_host', \App\Models\Setting::get('mail_host', 'smtp.gmail.com')) }}" 
+                                               class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                        @error('mail_host')
+                                            <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="mail_port" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">SMTP Port</label>
+                                        <input type="number" id="mail_port" name="mail_port" 
+                                               value="{{ old('mail_port', \App\Models\Setting::get('mail_port', 587)) }}" 
+                                               class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                        @error('mail_port')
+                                            <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="mail_username" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">SMTP Username</label>
+                                        <input type="text" id="mail_username" name="mail_username" 
+                                               value="{{ old('mail_username', \App\Models\Setting::get('mail_username')) }}" 
+                                               class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                        @error('mail_username')
+                                            <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="mail_password" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">SMTP Password</label>
+                                        <input type="password" id="mail_password" name="mail_password" 
+                                               value="{{ old('mail_password', \App\Models\Setting::get('mail_password')) }}" 
+                                               class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                        @error('mail_password')
+                                            <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label for="mail_encryption" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">SMTP Encryption</label>
+                                    <select id="mail_encryption" name="mail_encryption" 
+                                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                        <option value="tls" {{ old('mail_encryption', \App\Models\Setting::get('mail_encryption', 'tls')) == 'tls' ? 'selected' : '' }}>TLS</option>
+                                        <option value="ssl" {{ old('mail_encryption', \App\Models\Setting::get('mail_encryption', 'tls')) == 'ssl' ? 'selected' : '' }}>SSL</option>
+                                        <option value="null" {{ old('mail_encryption', \App\Models\Setting::get('mail_encryption', 'tls')) == 'null' ? 'selected' : '' }}>None</option>
+                                    </select>
+                                    @error('mail_encryption')
+                                        <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- From Address Configuration -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">From Address</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="mail_from_address" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">From Email Address</label>
+                                        <input type="email" id="mail_from_address" name="mail_from_address" 
+                                               value="{{ old('mail_from_address', \App\Models\Setting::get('mail_from_address', 'hello@example.com')) }}" 
+                                               class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                        @error('mail_from_address')
+                                            <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="mail_from_name" class="block text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}">From Name</label>
+                                        <input type="text" id="mail_from_name" name="mail_from_name" 
+                                               value="{{ old('mail_from_name', \App\Models\Setting::get('mail_from_name', 'ProjectFlow')) }}" 
+                                               class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                        @error('mail_from_name')
+                                            <p class="mt-1 text-sm text-red-600 transition-colors duration-200">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Test Mail Section -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-blue-50 border-blue-200', 'bg-blue-900/20 border-blue-700') }}">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 flex-1">
+                                        <h3 class="text-sm font-medium transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-800', 'text-blue-200') }}">
+                                            Test Mail Configuration
+                                        </h3>
+                                        <div class="mt-2 text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-700', 'text-blue-300') }}">
+                                            <p>Test your mail configuration by sending a test email to verify everything is working correctly.</p>
+                                        </div>
+                                        <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                                            <div class="flex-1">
+                                                <input type="email" id="test_email" placeholder="Enter email address to test" 
+                                                       class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('border-gray-300 bg-white text-gray-900', 'border-slate-600 bg-slate-700 text-slate-100') }}">
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button type="button" onclick="checkMailConfig()" 
+                                                        id="check-mail-btn"
+                                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-800 bg-blue-100 hover:bg-blue-200', 'text-blue-200 bg-blue-800 hover:bg-blue-700') }}">
+                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                    Check Config
+                                                </button>
+                                                <button type="button" onclick="sendTestMail()" 
+                                                        id="test-mail-btn"
+                                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-blue-800 bg-blue-100 hover:bg-blue-200', 'text-blue-200 bg-blue-800 hover:bg-blue-700') }}">
+                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                                    </svg>
+                                                    Send Test Email
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Test Results -->
+                            <div id="mail-test-output" class="hidden">
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('bg-gray-50 border-gray-200', 'bg-slate-800 border-slate-600') }}">
+                                    <h4 class="text-sm font-medium mb-2 transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-900', 'text-slate-100') }}">Test Results:</h4>
+                                    <div id="mail-test-result" class="text-sm transition-colors duration-200 {{ \App\Helpers\ThemeHelper::getThemeClassesWithTransition('text-gray-700', 'text-slate-300') }}"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-end">
+                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200">
+                                Save Mail Settings
                             </button>
                         </div>
                     </form>
@@ -850,6 +1027,145 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+
+// Mail configuration functions
+function checkMailConfig() {
+    const btn = document.getElementById('check-mail-btn');
+    const output = document.getElementById('mail-test-output');
+    const result = document.getElementById('mail-test-result');
+    
+    // Disable button and show loading
+    btn.disabled = true;
+    btn.innerHTML = `
+        <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Checking...
+    `;
+    
+    // Show output area
+    output.classList.remove('hidden');
+    result.textContent = 'Checking mail configuration...';
+    
+    // Make API call
+    fetch('{{ route("admin.settings.check-mail-config") }}', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            result.innerHTML = `
+                <div class="text-green-600 font-medium">✓ ${data.message}</div>
+                <div class="mt-2 text-sm">
+                    <strong>Current Configuration:</strong><br>
+                    Driver: ${data.settings.mail_mailer}<br>
+                    Host: ${data.settings.mail_host}<br>
+                    Port: ${data.settings.mail_port}<br>
+                    Encryption: ${data.settings.mail_encryption || 'None'}<br>
+                    From: ${data.settings.mail_from_name} &lt;${data.settings.mail_from_address}&gt;
+                </div>
+            `;
+        } else {
+            result.innerHTML = `<div class="text-red-600 font-medium">✗ ${data.message}</div>`;
+        }
+    })
+    .catch(error => {
+        result.innerHTML = `<div class="text-red-600 font-medium">✗ Error: ${error.message}</div>`;
+    })
+    .finally(() => {
+        // Re-enable button
+        btn.disabled = false;
+        btn.innerHTML = `
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Check Config
+        `;
+    });
+}
+
+function sendTestMail() {
+    const btn = document.getElementById('test-mail-btn');
+    const output = document.getElementById('mail-test-output');
+    const result = document.getElementById('mail-test-result');
+    const testEmail = document.getElementById('test_email').value;
+    
+    if (!testEmail) {
+        alert('Please enter an email address to test');
+        return;
+    }
+    
+    // Disable button and show loading
+    btn.disabled = true;
+    btn.innerHTML = `
+        <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Sending...
+    `;
+    
+    // Show output area
+    output.classList.remove('hidden');
+    result.textContent = `Sending test email to ${testEmail}...`;
+    
+    // Make API call
+    fetch('{{ route("admin.settings.test-mail") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({
+            test_email: testEmail
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            result.innerHTML = `<div class="text-green-600 font-medium">✓ ${data.message}</div>`;
+        } else {
+            result.innerHTML = `<div class="text-red-600 font-medium">✗ ${data.message}</div>`;
+        }
+    })
+    .catch(error => {
+        result.innerHTML = `<div class="text-red-600 font-medium">✗ Error: ${error.message}</div>`;
+    })
+    .finally(() => {
+        // Re-enable button
+        btn.disabled = false;
+        btn.innerHTML = `
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            Send Test Email
+        `;
+    });
+}
+
+// Show/hide SMTP config based on mail driver
+document.addEventListener('DOMContentLoaded', function() {
+    const mailDriver = document.getElementById('mail_mailer');
+    const smtpConfig = document.getElementById('smtp-config');
+    
+    function toggleSmtpConfig() {
+        if (mailDriver.value === 'smtp') {
+            smtpConfig.style.display = 'block';
+        } else {
+            smtpConfig.style.display = 'none';
+        }
+    }
+    
+    mailDriver.addEventListener('change', toggleSmtpConfig);
+    toggleSmtpConfig(); // Initial call
 });
 </script>
         </div>

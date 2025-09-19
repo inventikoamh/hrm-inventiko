@@ -158,6 +158,37 @@ class Setting extends Model
     {
         return static::get('theme_color', '#3B82F6');
     }
+    
+    /**
+     * Configure mail settings dynamically
+     */
+    public static function configureMailSettings()
+    {
+        $mailSettings = [
+            'mail_mailer' => static::get('mail_mailer', 'log'),
+            'mail_host' => static::get('mail_host', '127.0.0.1'),
+            'mail_port' => static::get('mail_port', 2525),
+            'mail_username' => static::get('mail_username'),
+            'mail_password' => static::get('mail_password'),
+            'mail_encryption' => static::get('mail_encryption'),
+            'mail_from_address' => static::get('mail_from_address', 'hello@example.com'),
+            'mail_from_name' => static::get('mail_from_name', 'ProjectFlow'),
+        ];
+        
+        // Configure Laravel mail settings
+        config([
+            'mail.default' => $mailSettings['mail_mailer'],
+            'mail.mailers.smtp.host' => $mailSettings['mail_host'],
+            'mail.mailers.smtp.port' => $mailSettings['mail_port'],
+            'mail.mailers.smtp.username' => $mailSettings['mail_username'],
+            'mail.mailers.smtp.password' => $mailSettings['mail_password'],
+            'mail.mailers.smtp.encryption' => $mailSettings['mail_encryption'],
+            'mail.from.address' => $mailSettings['mail_from_address'],
+            'mail.from.name' => $mailSettings['mail_from_name'],
+        ]);
+        
+        return $mailSettings;
+    }
 
     /**
      * Get late clock in threshold (minutes)
