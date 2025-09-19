@@ -65,6 +65,22 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
             $publicStoragePath = public_path('storage');
             $storagePath = storage_path('app/public');
             
+            // Function to recursively delete directory
+            $deleteDirectory = function($dir) use (&$deleteDirectory) {
+                if (is_dir($dir)) {
+                    $files = array_diff(scandir($dir), array('.', '..'));
+                    foreach ($files as $file) {
+                        $path = $dir . DIRECTORY_SEPARATOR . $file;
+                        if (is_dir($path)) {
+                            $deleteDirectory($path);
+                        } else {
+                            unlink($path);
+                        }
+                    }
+                    rmdir($dir);
+                }
+            };
+            
             // Remove existing link if it exists
             if (is_link($publicStoragePath)) {
                 unlink($publicStoragePath);
@@ -73,7 +89,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
             
             // Remove directory if it exists (in case it's a directory instead of link)
             if (is_dir($publicStoragePath)) {
-                rmdir($publicStoragePath);
+                $deleteDirectory($publicStoragePath);
                 $output[] = "Removed existing storage directory";
             }
             
