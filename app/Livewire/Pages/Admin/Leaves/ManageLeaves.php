@@ -119,7 +119,8 @@ class ManageLeaves extends Component
         $leaves = Leave::with(['user', 'approver'])
             ->when($this->search, function ($query) {
                 $query->whereHas('user', function ($q) {
-                    $q->where('name', 'like', '%' . $this->search . '%')
+                    $q->where('first_name', 'like', '%' . $this->search . '%')
+                      ->orWhere('last_name', 'like', '%' . $this->search . '%')
                       ->orWhere('email', 'like', '%' . $this->search . '%');
                 });
             })

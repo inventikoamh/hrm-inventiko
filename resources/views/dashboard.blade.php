@@ -63,7 +63,7 @@
                     <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-6 text-white">
                         <div class="flex items-center justify-between">
                             <div>
-                                <h1 class="text-2xl font-bold">Welcome back, {{ auth()->user()->first_name }}!</h1>
+                                <h1 class="text-2xl font-bold">Welcome back, {{ auth()->user()->first_name }} 🤚</h1>
                                 <p class="text-blue-100 mt-1">Here's your work overview for today.</p>
                             </div>
                             <div class="text-right">

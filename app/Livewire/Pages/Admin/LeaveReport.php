@@ -39,7 +39,8 @@ class LeaveReport extends Component
     {
         $users = User::with(['leaveBalances', 'leaves'])
             ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
+                $query->where('first_name', 'like', '%' . $this->search . '%')
+                      ->orWhere('last_name', 'like', '%' . $this->search . '%')
                       ->orWhere('email', 'like', '%' . $this->search . '%');
             })
             ->orderBy($this->sortBy, $this->sortDirection)

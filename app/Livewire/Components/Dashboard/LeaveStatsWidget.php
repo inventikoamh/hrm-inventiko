@@ -20,13 +20,11 @@ class LeaveStatsWidget extends Component
             ->whereYear('created_at', now()->year)
             ->count();
             
-        // Count users on approved leave today
+        // Count users on approved leave today (all user types)
         $onLeaveToday = User::whereHas('leaveRequests', function($query) use ($today) {
             $query->where('status', 'approved')
                   ->where('start_date', '<=', $today)
                   ->where('end_date', '>=', $today);
-        })->whereHas('roles', function($query) {
-            $query->where('name', 'employee');
         })->count();
 
         return view('livewire.components.dashboard.leave-stats-widget', [

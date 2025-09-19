@@ -113,10 +113,8 @@ class MonthlyReport extends Component
             $endDate = $startDate->copy()->endOfMonth();
         }
         
-        // Get all users with employee or admin role
-        $users = User::whereHas('roles', function($query) {
-            $query->whereIn('name', ['employee', 'admin']);
-        })->get();
+        // Get all users regardless of role
+        $users = User::all();
         
         $this->attendanceData = [];
         

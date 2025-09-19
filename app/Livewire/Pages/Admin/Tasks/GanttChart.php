@@ -40,9 +40,7 @@ class GanttChart extends Component
 
     public function getUsersProperty()
     {
-        return User::whereHas('roles', function($query) {
-            $query->whereIn('name', ['admin', 'employee']);
-        })->orderBy('name')->get();
+        return User::orderBy('first_name')->get();
     }
 
     public function getProjectsProperty()

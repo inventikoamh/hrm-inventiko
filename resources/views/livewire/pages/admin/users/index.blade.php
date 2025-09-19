@@ -57,7 +57,8 @@ new #[Layout('layouts.app')] class extends Component
         $users = User::query()
             ->when($this->search !== '', function ($q) {
                 $q->where(function ($q) {
-                    $q->where('name', 'like', '%' . $this->search . '%')
+                    $q->where('first_name', 'like', '%' . $this->search . '%')
+                      ->orWhere('last_name', 'like', '%' . $this->search . '%')
                       ->orWhere('email', 'like', '%' . $this->search . '%');
                 });
             })
